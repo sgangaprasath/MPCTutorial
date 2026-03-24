@@ -1,0 +1,30 @@
+## Core LaTeX auxiliary files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.toc
+
+## Bibliography files
+*.bbl
+*.blg
+*.bib.bak
+
+## Build directories (if using tools like Texmaker or TeXstudio)
+build/
+out/
+
+## Other common extensions
+*.nav
+*.out
+*.snm
+*.vrb
+*.lof
+*.lot
+*.idx
+*.ind
+*.ilg
+*.bcf
+*.run.xml
+.DS_Store
