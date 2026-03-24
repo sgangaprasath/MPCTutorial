@@ -52,7 +52,7 @@ citecolor   = magenta %Colour of citations
 \def\u{\mathbf{u}}
 \def\T{\mathsf{T}}
 \def\eff{\mathrm{eff}}
-\title{How to land a rocket}
+\title{Landing a rocket in a gust}
 \author{Jeyaditya Babu, Mohan Raj}
 \date{}
 
@@ -200,7 +200,7 @@ subject to
 \[
 z_k \ge 0, \qquad m_{\text{dry}} \le m_k \le m_{\text{wet}}.
 \]
-Here, the mass is not directly penalized in the tracking term; fuel efficiency is encouraged through the thrust penalty instead. Solving this problem at each time-step, applying only the first control input, and then repeating the procedure with the updated state yields a receding horizon controller capable of guiding the rocket toward a soft landing while reacting to disturbances along the way. The animation above shows the soft-landing of the rocket using this procedure. The \texttt{python}-code used to generate this animation is available here.
+Here, the mass is not directly penalized in the tracking term; fuel efficiency is encouraged through the thrust penalty instead. Solving this problem at each time-step, applying only the first control input, and then repeating the procedure with the updated state yields a receding horizon controller capable of guiding the rocket toward a soft landing while reacting to disturbances along the way. The animation above shows the soft-landing of the rocket using this procedure. The \texttt{python}-code used to generate this animation is available \href{https://github.com/sgangaprasath/MPCTutorial/blob/main/CasADi/RocketMPC.py}{here}. This toy model was inspired by the problem set in Robert Stengel's book on Optimal Control and Estimation.
 \subsection*{Computational Implementation}
 
 Translating the continuous-time optimal control problem into code requires a self-consistent discretization procedure. We discretize the dynamics using a 4th-order Runge-Kutta (RK4) scheme with a time step of $dt = 0.1$ s and a horizon of $N = 40$ steps (a 4 sec look-ahead). The resulting Nonlinear Program (NLP) is formulated using \texttt{CasADi} library in python. At each time-step, the NLP is solved using \texttt{IPOPT} and the solver simultaneously optimizes the physical states $\x_k$, controls $\u_k$ and the Lagrange multipliers that ensure $\x_{k+1} = \mathbf{F}(\x_k, \u_k)$ and thrust limits. To achieve real-time feasibility, we use \textit{warm starting}, where we take the optimal control sequence computed at the previous step as the initial guess:
